@@ -514,7 +514,7 @@ class StatifyBlacklist_Settings extends StatifyBlacklist {
 			);
 		}
 
-		// TODO: Extract user agent array.
+		// Extract user agent array.
 		if ( empty( trim( $options['ua']['blacklist'] ) ) ) {
 			$ua = array();
 		} else {
@@ -583,7 +583,6 @@ class StatifyBlacklist_Settings extends StatifyBlacklist {
 		} else {
 			$target_sanitized = $target_given;
 		}
-		$target_diff                = array_diff( $target_given, $target_sanitized );
 		$res['target']['blacklist'] = $target_sanitized;
 
 		// Sanitize IPs and subnets and remove empty inputs.
@@ -605,7 +604,14 @@ class StatifyBlacklist_Settings extends StatifyBlacklist {
 			add_settings_error(
 				'statify-blacklist',
 				'referer-invalid',
-				__( 'Some regular expressions are invalid:', 'statify-blacklist' ) . '<br>' . implode( '<br>', $referer_invalid )
+				__( 'Some regular expressions for referrers are invalid:', 'statify-blacklist' ) . '<br>' . implode( '<br>', $referer_invalid )
+			);
+		}
+		if ( ! empty( $target_invalid ) ) {
+			add_settings_error(
+				'statify-blacklist',
+				'target-invalid',
+				__( 'Some regular expressions for targets are invalid:', 'statify-blacklist' ) . '<br>' . implode( '<br>', $target_invalid )
 			);
 		}
 		if ( ! empty( $ip_diff ) ) {
