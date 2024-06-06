@@ -8,7 +8,7 @@
 * Requires at least: 4.7
 * Tested up to:      6.5
 * Requires PHP:      5.5
-* Stable tag:        1.7.1
+* Stable tag:        1.7.2
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ Same for IPv6 prefixes like _2001:db8:a0b:12f0::/64_.
 
 ## Upgrade Notice ##
 
+### 1.7.2 ###
+This is a bugfix release to restore the manual cleanup function that was broken since 1.7.0.
+
 ### 1.7.1 ###
 This is a service release with minor corrections. Recommended for all users. Tested up to 6.5.
 
@@ -100,7 +103,10 @@ This is a service release with minor corrections. Recommended for all users. Tes
 This is a service release with primarily internal rework. Tested up to 6.4 and PHP 8.3.
 
 
-## Changelog ##
+## Changelog
+
+### 1.7.2 / 06.06.2024 ###
+* Restore manual database cleanup functionality
 
 ### 1.7.1 / 24.03.2024 ###
 * Fix HTML syntax for checkboxes on settings page
