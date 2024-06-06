@@ -170,6 +170,27 @@ class StatifyBlacklist_Settings extends StatifyBlacklist {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Statify Filter', 'statify-blacklist' ); ?></h1>
+			<?php
+			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! empty( $_POST['cleanup'] ) ) {
+				// Database cleanup requested.
+				if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'statify-blacklist-options' ) ) {
+					// Nonce verification successful, proceed with cleanup.
+					StatifyBlacklist_Admin::cleanup_database();
+					?>
+					<div class="notice notice-success is-dismissible">
+						<p><?php esc_html_e( 'Database cleanup successful', 'statify-blacklist' ); ?></p>
+					</div>
+					<?php
+				} else {
+					// Nonce verification failed.
+					?>
+					<div class="notice notice-error is-dismissible">
+						<p><?php esc_html_e( 'Database cleanup request failed', 'statify-blacklist' ); ?></p>
+					</div>
+					<?php
+				}
+			}
+			?>
 
 			<form id="statify-settings" method="post" action="options.php">
 				<?php
@@ -178,7 +199,8 @@ class StatifyBlacklist_Settings extends StatifyBlacklist {
 				submit_button();
 				?>
 				<hr>
-				<input class="button-secondary" type="submit" name="cleanUp"
+				<input class="button-secondary" type="submit" name="cleanup"
+					formaction=""
 					value="<?php esc_html_e( 'CleanUp Database', 'statify-blacklist' ); ?>"
 					onclick="return confirm('<?php echo esc_js( __( 'Do you really want to apply filters to database? This cannot be undone.', 'statify-blacklist' ) ); ?>');">
 				<p class="description">
